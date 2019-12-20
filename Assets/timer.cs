@@ -17,7 +17,7 @@ public class timer : MonoBehaviour
     void Update()
     {
         float currentTime = startTime - Time.time;
-        string min = ((int)currentTime / 60).ToString();
+        string min = ((int)(currentTime / 60.0)).ToString();
         string sec = (currentTime % 60).ToString("f0");
         GameObject.Find("Clock").GetComponent<UnityEngine.UI.Text>().text = min + " : " + sec;
     }
