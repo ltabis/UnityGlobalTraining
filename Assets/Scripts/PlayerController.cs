@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float rotationSpeed = 5f;
-    public float movementSpeed = 2f;
+    public float rotationSpeed = 180f;
+    public float movementSpeed = 5f;
 
     private Rigidbody2D rb;
 
@@ -18,25 +18,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Getting input from user (here it will be 0 or 1, but with a controller it will be bounded between 0 and 1)
-        float y = Input.GetAxis("Vertical");
-        float x = Input.GetAxis("Horizontal");
-        
-        // Applying transformations
-        Thrust(y);
-        RotateObject(transform, x * -rotationSpeed);
-
+        Thrust();
+        RotateObject();
     }
 
     // Thrust the ship verticaly
-    private void Thrust(float amout)
+    private void Thrust()
     {
-        rb.AddForce(transform.up * amout * movementSpeed);
+        // Getting the velocity vector
+        Vector3 velocity = new Vector3(0, Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime, 0);
+
+        // Thrusting in the direction of the front of the object
+        transform.position += transform.rotation * velocity;
     }
-    
+
     // Rotate the object with the x axis
-    private void RotateObject(Transform t, float amout)
+    private void RotateObject()
     {
-        t.Rotate(0, 0, amout);
+        // Getting z rotation
+        float z = transform.rotation.eulerAngles.z;
+
+        // Substracting horizontal abcissia
+        z -= Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+
+        // Updating transform
+        transform.rotation = Quaternion.Euler(0, 0, z);
     }
 }
