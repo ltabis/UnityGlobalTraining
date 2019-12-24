@@ -4,33 +4,39 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float baseSpeed = 10f;
-    public float speedBonus = 1f;
-    private new Transform transform;
+    public float rotationSpeed = 5f;
+    public float movementSpeed = 2f;
 
-    void Start()
+    private Rigidbody2D rb;
+
+    private void Start()
     {
-        transform = GetComponent<Transform>();
+        // Store a reference to the rigidbody2D component of the object
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetButton("left"))
-        {
-            transform.Translate(Vector3.left * baseSpeed * speedBonus * Time.deltaTime);
-        }
-        if (Input.GetButton("right"))
-        {
-            transform.Translate(Vector3.right * baseSpeed * speedBonus * Time.deltaTime);
-        }
-        if (Input.GetButton("up"))
-        {
-            transform.Translate(Vector3.up * baseSpeed * speedBonus * Time.deltaTime);
-        }
-        if (Input.GetButton("down"))
-        {
-            transform.Translate(Vector3.down * baseSpeed * speedBonus * Time.deltaTime);
-        }
+        // Getting input from user (here it will be 0 or 1, but with a controller it will be bounded between 0 and 1)
+        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("Horizontal");
+        
+        // Applying transformations
+        Thrust(y);
+        RotateObject(transform, x * -rotationSpeed);
+
+    }
+
+    // Thrust the ship verticaly
+    private void Thrust(float amout)
+    {
+        rb.AddForce(transform.up * amout * movementSpeed);
+    }
+    
+    // Rotate the object with the x axis
+    private void RotateObject(Transform t, float amout)
+    {
+        t.Rotate(0, 0, amout);
     }
 }
