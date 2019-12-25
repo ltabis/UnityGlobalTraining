@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float rotationSpeed = 180f;
-    public float movementSpeed = 5f;
+    public float rotationSpeed = 360;
+    public float movementSpeed = 20f;
 
-    private Rigidbody2D rb;
-
-    private void Start()
-    {
-        // Store a reference to the rigidbody2D component of the object
-        rb = GetComponent<Rigidbody2D>();
-    }
+    // Not yet used
+    public float boostSpeed = 15f;
+    public float boostDuration = 2f;
 
     // Update is called once per frame
     private void Update()
     {
-        Thrust();
+        if (Input.GetButtonDown("boost"))
+        {
+            BoostThrust();
+        }
+        else
+        {
+            RegularThrust();
+        }
         RotateObject();
     }
 
-    // Thrust the ship verticaly
-    private void Thrust()
+    // Thrust the object forward
+    private void RegularThrust()
     {
         // Getting the velocity vector
         Vector3 velocity = new Vector3(0, Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime, 0);
@@ -32,10 +35,16 @@ public class PlayerController : MonoBehaviour
         transform.position += transform.rotation * velocity;
     }
 
-    // Rotate the object with the x axis
+    // Boosts the ship forward
+    private void BoostThrust()
+    {
+        // Not yet implemented
+    }
+
+    // Rotate the object on the z axis
     private void RotateObject()
     {
-        // Getting z rotation
+        // Getting z coordinate rotation
         float z = transform.rotation.eulerAngles.z;
 
         // Substracting horizontal abcissia

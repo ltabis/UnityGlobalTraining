@@ -205,13 +205,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186632498}
-  m_LocalRotation: {x: 0.05314521, y: 0.9362083, z: 0.18282399, w: -0.29540655}
+  m_LocalRotation: {x: 0.051619485, y: 0.9386418, z: 0.1832577, w: -0.28758255}
   m_LocalPosition: {x: -1.744, y: -0.007, z: -3.543}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -21.945002, y: 215.12599, z: -0.52500004}
+  m_LocalEulerAnglesHint: {x: -21.945002, y: 214.17, z: -0.52500004}
 --- !u!1 &1415672816 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 269125893546728084, guid: 50790d4c3b66fcb49a5b456d10c4cebe,
@@ -230,9 +230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8aac148b4514b40a0c12c6b7779d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 10
   rotationSpeed: 5
   movementSpeed: 2
+  boostSpeed: 15
+  boostDuration: 15
 --- !u!50 &1415672818
 Rigidbody2D:
   serializedVersion: 4
