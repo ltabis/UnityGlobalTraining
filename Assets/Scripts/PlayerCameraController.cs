@@ -4,37 +4,54 @@ using UnityEngine;
 
 public class PlayerCameraController : MonoBehaviour
 {
-    public float maxZoomOut = -70f;
-    public float maxZoomIn = -40f;
-    public float currentCameraZoom;
     public float cameraZoomUpdateSpeed = -1f;
+    public float maxZoomOutBoost = -20f;
+    public float currentCameraZoom = 0f;
+    public float maxZoomOutRegular = -70f;
+    public float maxZoomInRegular = -40f;
+
+    private float zoomAddition = 0;
 
     private Transform bodyT;
+    private PlayerController player;
 
     void Start()
     {
         // Get the transform component of the body
         bodyT = GameObject.Find("Body").GetComponent<Transform>();
 
+        // Get a reference of the player
+        player = GameObject.Find("Body").GetComponent<PlayerController>();
+
         // Initialize current camera zoom
-        currentCameraZoom = maxZoomIn;
+        currentCameraZoom = maxZoomInRegular;
     }
 
     void Update()
     {
-        // Use the transform of the body, but not the z coordinate.
-        transform.position = new Vector3(bodyT.position.x, bodyT.position.y, transform.position.z);
+        // Copying the player's position
+        transform.position = bodyT.position;
 
-        // Update the camera zoom
-        UpdateCameraZoom(Input.GetKey("up"));
+        // Check if the boost is activated, if so, incrementing maximum zooming out for the camera
+        if (player.boostActivated)
+        {
+            zoomAddition = maxZoomOutBoost;
+        }
+        else
+        {
+            zoomAddition += zoomAddition < 0 ? 1 : 0;
+        }
+
+        // Update the camera zoom, the boost will affect the effect
+        UpdateCameraZoom(Input.GetKey("up"), maxZoomOutRegular + zoomAddition, maxZoomInRegular);
     }
 
-    private void UpdateCameraZoom(bool isKeyPressed)
+    private void UpdateCameraZoom(bool isKeyPressed, float maxZoomOut, float maxZoomIn)
     {
-
         // Updating the camera zoom
         currentCameraZoom += isKeyPressed ? cameraZoomUpdateSpeed : -cameraZoomUpdateSpeed;
 
+        Debug.Log("maxZoomOut: " + maxZoomOut);
         // Clamping the camera zoom between bounds
         currentCameraZoom = Mathf.Clamp(currentCameraZoom, maxZoomOut, maxZoomIn);
 

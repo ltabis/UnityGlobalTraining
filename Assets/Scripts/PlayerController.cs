@@ -12,10 +12,10 @@ public class PlayerController : MonoBehaviour
     public float boostFactor = 2f;
     public float boostDuration = 1f;
     public float boostCoolDown = 2f;
+    public bool boostActivated = false;
 
     private float boostUseTime = 0f;
     private float boostCoolDownTime = 0f;
-    private bool boostActivated = false;
 
     // Update is called once per frame
     private void Update()
