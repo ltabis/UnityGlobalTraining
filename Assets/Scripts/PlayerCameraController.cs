@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerCameraController : MonoBehaviour
 {
+    // Zoom parameters
     public float cameraZoomUpdateSpeed = -1f;
     public float maxZoomOutBoost = -20f;
     public float currentCameraZoom = 0f;
     public float maxZoomOutRegular = -70f;
     public float maxZoomInRegular = -40f;
 
+    // Zoom bonus when boosting
     private float zoomAddition = 0;
 
+    // Transform and controller script of the player
     private Transform bodyT;
     private PlayerController player;
 
@@ -51,7 +54,6 @@ public class PlayerCameraController : MonoBehaviour
         // Updating the camera zoom
         currentCameraZoom += isKeyPressed ? cameraZoomUpdateSpeed : -cameraZoomUpdateSpeed;
 
-        Debug.Log("maxZoomOut: " + maxZoomOut);
         // Clamping the camera zoom between bounds
         currentCameraZoom = Mathf.Clamp(currentCameraZoom, maxZoomOut, maxZoomIn);
 
