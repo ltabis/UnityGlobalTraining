@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Movement
+    // Movement.
     public float rotationSpeed = 360f;
     public float normalMovementSpeed = 20f;
     public float maxVelocity = 40f;
 
-    // Boost
+    // Boost.
     public float boostFactor = 2f;
     public float boostDuration = 1f;
     public float boostCoolDown = 2f;
     public bool boostActivated = false;
 
-    // Boost private fields
+    // Boost private fields.
     private float boostUseTime = 0f;
     private float boostCoolDownTime = 0f;
 
-    // Current velocity filed
+    // Current velocity filed.
     private float currentVelocity = 0f;
 
-    // Trails
+    // Trails.
     public TrailRenderer Engine1Trail;
     public TrailRenderer Engine2Trail;
 
@@ -33,47 +33,53 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Checking if the boost button as been pressed
-        if (boostCoolDownTime <= 0f && (Input.GetButton("boost") || boostActivated))
+        // Checking if the boost button as been pressed.
+        if (boostActivated || (Input.GetAxis("Vertical") > 0 && boostCoolDownTime <= 0f && Input.GetButton("boost")))
         {
-            currentVelocity += currentVelocity < normalMovementSpeed * boostFactor ? 0.5f : 0;
+            // Increment speed.
+            currentVelocity += currentVelocity < normalMovementSpeed * boostFactor ? .5f : 0;
+
+            // Thrusting.
             UseBoost(currentVelocity);
         }
         else
         {
-            currentVelocity -= currentVelocity > normalMovementSpeed ? 0.5f : 0;
-            Thrust(currentVelocity);
+            // Decrement speed if the normal movement speed isn't yet reached.
+            currentVelocity -= currentVelocity > normalMovementSpeed ? .5f : 0;
             boostCoolDownTime -= boostCoolDownTime > 0 ? Time.deltaTime : 0;
+
+            // Thrusting.
+            Thrust(currentVelocity);
         }
 
-        // Changing trail length using the current speed of the object
+        // Changing trail length using the current speed of the object.
         float offset = Mathf.Lerp(0f, 5f, Input.GetAxis("Vertical") * (currentVelocity / maxVelocity));
-        changeTrailWidth(offset);
+        ChangeTrailWidth(offset);
 
-        // Rotating the object
+        // Rotating the object.
         RotateObject(rotationSpeed);
     }
 
-    // Thrust the object forward
+    // Thrust the object forward.
     private void Thrust(float speed)
     {
-        // Getting the velocity vector
+        // Getting the velocity vector.
         Vector3 velocity = new Vector3(0, Input.GetAxis("Vertical") * speed * Time.deltaTime, 0);
 
-        // Thrusting in the direction of the front of the object
+        // Thrusting in the direction of the front of the object.
         transform.position += transform.rotation * velocity;
     }
 
-    // Rotate the object on the z axis
+    // Rotate the object on the z axis.
     private void RotateObject(float speed)
     {
-        // Getting z coordinate rotation
+        // Getting z coordinate rotation.
         float z = transform.rotation.eulerAngles.z;
 
-        // Substracting horizontal abcissia
+        // Substracting horizontal abcissia.
         z -= Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
-        // Updating transform
+        // Updating transform.
         transform.rotation = Quaternion.Euler(0, 0, z);
     }
 
@@ -81,20 +87,29 @@ public class PlayerController : MonoBehaviour
     {
         if (boostUseTime < boostDuration)
         {
-            Thrust(thrustPower);
+            // The boost is still active.
+            // Getting the velocity vector.
+            Vector3 velocity = new Vector3(0, thrustPower * Time.deltaTime, 0);
+
+            // Thrusting in the direction of the front of the object.
+            transform.position += transform.rotation * velocity;
+
+            // Computing the usage time of the boost
             boostUseTime += Time.deltaTime;
             boostActivated = true;
         }
         else
         {
+            // The boost as been consumed, desactivating it.
             boostActivated = false;
             boostUseTime = 0f;
             boostCoolDownTime = boostCoolDown;
         }
     }
 
-    private void changeTrailWidth(float width)
+    private void ChangeTrailWidth(float width)
     {
+        // Setting the width of both trails.
         Engine1Trail.startWidth = width;
         Engine2Trail.startWidth = width;
         Engine1Trail.endWidth = width / 2;

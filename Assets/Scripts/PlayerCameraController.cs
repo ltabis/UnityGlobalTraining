@@ -11,6 +11,9 @@ public class PlayerCameraController : MonoBehaviour
     public float maxZoomOutRegular = -70f;
     public float maxZoomInRegular = -40f;
 
+    // Shake coroutine
+    public Shake shakeEffect;
+
     // Zoom bonus when boosting
     private float zoomAddition = 0;
 
@@ -39,6 +42,7 @@ public class PlayerCameraController : MonoBehaviour
         if (player.boostActivated)
         {
             zoomAddition = maxZoomOutBoost;
+            StartCoroutine(shakeEffect.ShakeOnce(.4f, .2f));
         }
         else
         {
