@@ -48,8 +48,6 @@ public class PlayerController : MonoBehaviour
 
         // Changing trail length using the current speed of the object
         float offset = Mathf.Lerp(0f, 5f, Input.GetAxis("Vertical") * (currentVelocity / maxVelocity));
-        Debug.Log("offset: " + offset);
-        Debug.Log("currentVelocity / maxVelocity: " + Input.GetAxis("Vertical") * (currentVelocity / maxVelocity));
         changeTrailWidth(offset);
 
         // Rotating the object
