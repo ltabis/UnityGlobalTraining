@@ -260,7 +260,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -374,11 +374,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 360
-  movementSpeed: 20
+  normalMovementSpeed: 20
+  maxVelocity: 40
   boostFactor: 2
   boostDuration: 1
   boostCoolDown: 2
   boostActivated: 0
+  Engine1Trail: {fileID: 5825341564398447247}
+  Engine2Trail: {fileID: 679624788072570163}
 --- !u!1 &6898472490730278522
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +702,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

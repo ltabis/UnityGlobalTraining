@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Movement
-    public float rotationSpeed = 360;
-    public float movementSpeed = 20f;
+    public float rotationSpeed = 360f;
+    public float normalMovementSpeed = 20f;
+    public float maxVelocity = 40f;
 
     // Boost
     public float boostFactor = 2f;
@@ -14,22 +15,42 @@ public class PlayerController : MonoBehaviour
     public float boostCoolDown = 2f;
     public bool boostActivated = false;
 
+    // Boost private fields
     private float boostUseTime = 0f;
     private float boostCoolDownTime = 0f;
 
-    // Update is called once per frame
+    // Current velocity filed
+    private float currentVelocity = 0f;
+
+    // Trails
+    public TrailRenderer Engine1Trail;
+    public TrailRenderer Engine2Trail;
+
+    private void Start()
+    {
+        currentVelocity = normalMovementSpeed;
+    }
+
     private void Update()
     {
         // Checking if the boost button as been pressed
         if (boostCoolDownTime <= 0f && (Input.GetButton("boost") || boostActivated))
         {
-            UseBoost(movementSpeed * boostFactor);
+            currentVelocity += currentVelocity < normalMovementSpeed * boostFactor ? 0.5f : 0;
+            UseBoost(currentVelocity);
         }
         else
         {
-            Thrust(movementSpeed);
+            currentVelocity -= currentVelocity > normalMovementSpeed ? 0.5f : 0;
+            Thrust(currentVelocity);
             boostCoolDownTime -= boostCoolDownTime > 0 ? Time.deltaTime : 0;
         }
+
+        // Changing trail length using the current speed of the object
+        float offset = Mathf.Lerp(0f, 5f, Input.GetAxis("Vertical") * (currentVelocity / maxVelocity));
+        Debug.Log("offset: " + offset);
+        Debug.Log("currentVelocity / maxVelocity: " + Input.GetAxis("Vertical") * (currentVelocity / maxVelocity));
+        changeTrailWidth(offset);
 
         // Rotating the object
         RotateObject(rotationSpeed);
@@ -72,5 +93,13 @@ public class PlayerController : MonoBehaviour
             boostUseTime = 0f;
             boostCoolDownTime = boostCoolDown;
         }
+    }
+
+    private void changeTrailWidth(float width)
+    {
+        Engine1Trail.startWidth = width;
+        Engine2Trail.startWidth = width;
+        Engine1Trail.endWidth = width / 2;
+        Engine2Trail.endWidth = width / 2;
     }
 }
