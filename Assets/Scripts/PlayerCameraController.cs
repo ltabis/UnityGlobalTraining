@@ -35,7 +35,6 @@ public class PlayerCameraController : MonoBehaviour
         // Updating the camera zoom
         currentCameraZoom += isKeyPressed ? cameraZoomUpdateSpeed : -cameraZoomUpdateSpeed;
 
-        Debug.Log("Zoom: " + currentCameraZoom);
         // Clamping the camera zoom between bounds
         currentCameraZoom = Mathf.Clamp(currentCameraZoom, maxZoomOut, maxZoomIn);
 
