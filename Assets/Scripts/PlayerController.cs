@@ -26,6 +26,16 @@ public class PlayerController : MonoBehaviour
     public TrailRenderer Engine1Trail;
     public TrailRenderer Engine2Trail;
 
+    // Dash public
+    public float dashSpeed = 3.0f;
+    public float dashLength = 10.0f;
+
+    // Dash
+    bool dashing = false;
+    private Vector3 startPosition = Vector3.zero;
+    private Vector3 endPosition = Vector3.zero;
+
+
     private void Start()
     {
         currentVelocity = normalMovementSpeed;
@@ -33,6 +43,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Checking the dash as been activated
+        DashThrust();
+
         // Checking if the boost button as been pressed.
         if (boostActivated || (Input.GetAxis("Vertical") > 0 && boostCoolDownTime <= 0f && Input.GetButton("boost")))
         {
@@ -107,6 +120,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Changes both engines trailes
     private void ChangeTrailWidth(float width)
     {
         // Setting the width of both trails.
@@ -114,5 +128,34 @@ public class PlayerController : MonoBehaviour
         Engine2Trail.startWidth = width;
         Engine1Trail.endWidth = width / 2;
         Engine2Trail.endWidth = width / 2;
+    }
+
+    // Thrusting in directions if the player hits 'd'
+    private void DashThrust()
+    {
+        if (Input.GetButton("dash") && (Input.GetButton("left") || Input.GetButton("right")) && boostCoolDownTime <= 0)
+        {
+            // Getting the dash direction
+            int direction = Input.GetButton("left") ? -1 : 1;
+
+            // Reseting the timer
+            boostCoolDownTime = boostCoolDown;
+
+            // Setting values
+            dashing = true;
+            startPosition = transform.position;
+            endPosition = transform.position + (transform.right * (dashLength * direction));
+        }
+
+        if (dashing)
+        {
+            // Move the player to the end position
+            transform.position = Vector3.MoveTowards(transform.position, endPosition, dashSpeed);
+
+            if (transform.position == endPosition)
+            {
+                dashing = false;
+            }
+        }
     }
 }
