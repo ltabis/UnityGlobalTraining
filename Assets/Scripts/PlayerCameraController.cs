@@ -17,17 +17,16 @@ public class PlayerCameraController : MonoBehaviour
     // Zoom bonus when boosting
     private float zoomAddition = 0;
 
+    // Boost.
+    private bool boostActivated = false;
+
     // Transform and controller script of the player
     private Transform bodyT;
-    private PlayerController player;
 
     void Start()
     {
         // Get the transform component of the body
         bodyT = GameObject.Find("Body").GetComponent<Transform>();
-
-        // Get a reference of the player
-        player = GameObject.Find("Body").GetComponent<PlayerController>();
 
         // Initialize current camera zoom
         currentCameraZoom = maxZoomInRegular;
@@ -39,7 +38,7 @@ public class PlayerCameraController : MonoBehaviour
         transform.position = bodyT.position;
 
         // Check if the boost is activated, if so, incrementing maximum zooming out for the camera
-        if (player.boostActivated)
+        if (boostActivated)
         {
             zoomAddition = maxZoomOutBoost;
             StartCoroutine(shakeEffect.ShakeOnce(.4f, .2f));
@@ -51,6 +50,11 @@ public class PlayerCameraController : MonoBehaviour
 
         // Update the camera zoom, the boost will affect the effect
         UpdateCameraZoom(Input.GetKey("up"), maxZoomOutRegular + zoomAddition, maxZoomInRegular);
+    }
+
+    public void BoostEffects(bool status)
+    {
+        boostActivated = status;
     }
 
     private void UpdateCameraZoom(bool isKeyPressed, float maxZoomOut, float maxZoomIn)
