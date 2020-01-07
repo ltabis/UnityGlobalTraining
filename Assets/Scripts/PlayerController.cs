@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
 
         // Rotating the object.
         RotateObject(rotationSpeed);
+        if (Input.GetKeyUp("space") && GameObject.Find("Clock").GetComponent<Timer>().IsEnd())
+        {
+            Shoot();
+        }
     }
 
     // Thrust the object forward.
@@ -80,5 +84,10 @@ public class PlayerController : MonoBehaviour
         Engine2Trail.startWidth = width;
         Engine1Trail.endWidth = width / 2;
         Engine2Trail.endWidth = width / 2;
+    }
+
+    private void Shoot()
+    {
+        Debug.Log("Shoot !");
     }
 }

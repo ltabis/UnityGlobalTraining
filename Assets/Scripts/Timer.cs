@@ -8,7 +8,8 @@ public class Timer : MonoBehaviour
     /* class for timer behaviour */
 
     private Text clockTest;
-    private float startTime = 300;
+    private bool end = false;
+    public float startTime = 300;
     // Start is called before the first frame update
     void Start()
     { }
@@ -16,9 +17,24 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float currentTime = startTime - Time.time;
+        float currentTime = (end ? 0 : startTime - Time.time);
         float min = (int)(currentTime / 60.0);
         float sec = Mathf.Floor(currentTime) % 60;
-        GameObject.Find("Clock").GetComponent<UnityEngine.UI.Text>().text = min.ToString() + " : " + (sec < 10 ? "0" + sec.ToString() : sec.ToString());
+        GameObject.Find("Clock").GetComponent<UnityEngine.UI.Text>().text = (min < 10 ? "0" + min.ToString() : min.ToString())
+            + " : " + (sec < 10 ? "0" + sec.ToString() : sec.ToString());
+        if (!end && currentTime <= 0)
+            end = true;
+    }
+
+    // Get Ellapsed time since start of the wave
+    public float GetRemainingTime()
+    {
+        return (end ? startTime - Time.time : 0);
+    }
+
+    // Get state of the timer
+    public bool IsEnd()
+    {
+        return end;
     }
 }
