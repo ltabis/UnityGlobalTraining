@@ -88,6 +88,11 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("Shoot !");
+        gameObject.transform.GetChild(1).GetComponentsInChildren<Renderer>()[0].material.color = Color.red;
+        GameObject[] toDestroy = GameObject.FindGameObjectsWithTag("Ennemy");
+        foreach (GameObject elem in toDestroy)
+        {
+            Destroy(elem);
+        }
     }
 }
