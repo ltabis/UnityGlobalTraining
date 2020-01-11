@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 269125895575889146}
   - component: {fileID: 269125895575889147}
   - component: {fileID: 9168560772105700392}
+  - component: {fileID: 5144430262417077111}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -125,6 +126,19 @@ MonoBehaviour:
   maxZoomOutRegular: -70
   maxZoomInRegular: -40
   shakeEffect: {fileID: 8037951272577801316}
+--- !u!114 &5144430262417077111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269125895575889145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d96ed92688efd4688a757de3845f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectMat: {fileID: 2100000, guid: f25b84f863a817349bd2e0341949352c, type: 2}
 --- !u!1 &3536115398832296872
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,16 +433,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8aac148b4514b40a0c12c6b7779d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 360
   normalMovementSpeed: 20
+  currentVelocity: 0
+  rotationSpeed: 360
   maxVelocity: 40
-  boostFactor: 2
-  boostDuration: 1
-  boostCoolDown: 2
-  boostActivated: 0
   Engine1Trail: {fileID: 5825341564398447247}
   Engine2Trail: {fileID: 679624788072570163}
-  dashSpeed: 3
 --- !u!50 &1158654412435439756
 Rigidbody2D:
   serializedVersion: 4
