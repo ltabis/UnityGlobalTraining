@@ -7,9 +7,8 @@ public class Timer : MonoBehaviour
 {
     /* class for timer behaviour */
 
-    private Text clockTest;
     private bool end = false;
-    public float startTime = 300;
+    public static float startTime = 10;
     
     // Start is called before the first frame update
     void Start()
@@ -37,5 +36,11 @@ public class Timer : MonoBehaviour
     public bool IsEnd()
     {
         return end;
+    }
+
+    public void NextWave()
+    {
+        startTime += 10;
+        end = false;
     }
 }

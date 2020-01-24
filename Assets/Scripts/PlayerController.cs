@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
         Engine2Trail.endWidth = width / 2;
     }
 
+    // Change ship color and destroy all gameobject with the tag ennemy
     private void Shoot()
     {
         gameObject.transform.GetChild(1).GetComponentsInChildren<Renderer>()[0].material.color = Color.red;
