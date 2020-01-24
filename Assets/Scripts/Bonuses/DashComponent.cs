@@ -29,7 +29,7 @@ public class DashComponent : MonoBehaviour, IBonus
     private void SetDashDirection()
     {
         // Checking if buttons have been used
-        if (Input.GetButton("dash") && (Input.GetButtonDown("left") || Input.GetButtonDown("right")) && dashsUsed != dashAmout)
+        if (Input.GetButton("dash") && (Input.GetButtonDown("left") || Input.GetButtonDown("right")) && dashsUsed < dashAmout)
         {
             // Getting the dash direction
             int direction = Input.GetButton("left") ? -1 : 1;

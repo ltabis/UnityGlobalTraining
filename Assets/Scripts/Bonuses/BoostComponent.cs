@@ -75,7 +75,7 @@ public class BoostComponent : MonoBehaviour, IBonus
             boostUseTime = 0f;
             boostCoolDownTime = boostCoolDown;
 
-            // Disable camera boost effects
+            // Disable camera boost effects.
             playerCamera.BoostEffects(false);
         }
     }
@@ -85,9 +85,7 @@ public class BoostComponent : MonoBehaviour, IBonus
     {
         boostCoolDown -= boostCoolDown > 0 ? boostBonus : 0;
 
-        // Reseting cool down time
+        // Reseting cool down time.
         boostCoolDownTime = .0f;
-
-        Debug.Log("boostCoolDown: " + boostCoolDown);
     }
 }
