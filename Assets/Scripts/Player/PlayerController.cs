@@ -30,10 +30,10 @@ public class PlayerController : MonoBehaviour
 
         // Rotating the object.
         RotateObject(rotationSpeed);
-        if (Input.GetKeyUp("space") && GameObject.Find("Clock").GetComponent<Timer>().IsEnd())
+        /* if (Input.GetKeyUp("space") && GameObject.Find("Clock").GetComponent<Timer>().IsEnd())
         {
             Shoot();
-        }
+        } */
     }
 
     // Thrust the object forward.
