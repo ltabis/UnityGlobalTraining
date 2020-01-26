@@ -40,7 +40,7 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            gameObject.GetComponent<UnityEngine.UI.Text>().text = "End of time has come !";
+            gameObject.GetComponent<UnityEngine.UI.Text>().text = "Destroy !";
         }
     }
 

@@ -24,6 +24,9 @@ public class WaveMachine : MonoBehaviour
         timerInstance = Instantiate(TimerPrefab);
         timerInstance.transform.SetParent(GameObject.Find("Canvas").transform);
         timerInstance.name = "weaponTimer";
+
+        // need to change position
+        timerInstance.GetComponent<Transform>().position = new Vector3(500, 500, 0);
         script = GameObject.FindObjectOfType(typeof(Timer)) as Timer;
         script.Launch(wave * range);
     }
