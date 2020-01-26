@@ -7,32 +7,43 @@ public class Timer : MonoBehaviour
 {
     /* class for timer behaviour */
 
-    public bool start = false;
-    public float startTime = 10;
+    [SerializeField] private float duration;
+    [SerializeField] private bool start = true;
+
+    private float timer;
     
     // Start is called before the first frame update
     void Start()
-    { }
+    {
+        timer = duration;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (start)
         {
-            float currentTime = startTime - Time.time;
-            float min = (int)(currentTime / 60.0);
-            float sec = Mathf.Floor(currentTime) % 60;
-            gameObject.GetComponent<UnityEngine.UI.Text>().text = (min < 10 ? "0" + min.ToString() : min.ToString())
-                + " : " + (sec < 10 ? "0" + sec.ToString() : sec.ToString());
-            if (currentTime <= 0)
+            timer -= Time.deltaTime;
+            gameObject.GetComponent<UnityEngine.UI.Text>().text = timer.ToString("F");
+            if (timer <= 0f)
+            {
+                gameObject.GetComponent<UnityEngine.UI.Text>().text = "00:00";
                 start = false;
+            }
+            else
+            {
+                float min = (int)(timer / 60.0);
+                float sec = Mathf.Floor(timer) % 60;
+                gameObject.GetComponent<UnityEngine.UI.Text>().text = (min < 10 ? "0" + min.ToString() : min.ToString())
+                    + " : " + (sec < 10 ? "0" + sec.ToString() : sec.ToString());
+            }
         }
     }
 
     // Get Ellapsed time since start of the wave
     public float GetRemainingTime()
     {
-        return (start ? startTime - Time.time : 0);
+        return (start ? duration - Time.time : 0);
     }
 
     // Get state of the timer
@@ -43,7 +54,7 @@ public class Timer : MonoBehaviour
 
     public void Launch(float newTime)
     {
-        startTime = newTime;
+        duration = newTime;
         start = true;
     }
 }

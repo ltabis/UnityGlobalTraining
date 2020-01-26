@@ -30,10 +30,10 @@ public class PlayerController : MonoBehaviour
 
         // Rotating the object.
         RotateObject(rotationSpeed);
-        /* if (Input.GetKeyUp("space") && GameObject.Find("Clock").GetComponent<Timer>().IsEnd())
+        if (Input.GetKeyUp("space") && GameObject.Find("weaponTimer").GetComponent<Timer>().IsRunning())
         {
             Shoot();
-        } */
+        }
     }
 
     // Thrust the object forward.
@@ -95,5 +95,6 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(elem);
         }
+//        GameObject.FindObjectOfType<WaveMachine>().NextWave();
     }
 }
