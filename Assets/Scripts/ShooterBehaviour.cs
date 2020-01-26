@@ -15,6 +15,16 @@ public class ShooterBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           
+        time += Time.deltaTime;
+        if (time >= gap)
+        {
+            time = time - gap;
+            // Shoot()
+        }
+    }
+
+    private void Shoot()
+    {
+
     }
 }
