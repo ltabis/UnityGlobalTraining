@@ -38,12 +38,16 @@ public class Timer : MonoBehaviour
                     + " : " + (sec < 10 ? "0" + sec.ToString() : sec.ToString());
             }
         }
+        else
+        {
+            gameObject.GetComponent<UnityEngine.UI.Text>().text = "End of time has come !";
+        }
     }
 
     // Get Ellapsed time since start of the wave
     public float GetRemainingTime()
     {
-        return (start ? duration - Time.time : 0);
+        return (start ? timer -= Time.deltaTime : 0);
     }
 
     // Get state of the timer
@@ -55,6 +59,7 @@ public class Timer : MonoBehaviour
     public void Launch(float newTime)
     {
         duration = newTime;
+        timer = duration;
         start = true;
     }
 }

@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         // Rotating the object.
         RotateObject(rotationSpeed);
-        if (Input.GetKeyUp("space") && GameObject.Find("weaponTimer").GetComponent<Timer>().IsRunning())
+        if (Input.GetKeyUp("space") && !GameObject.Find("weaponTimer").GetComponent<Timer>().IsRunning())
         {
             Shoot();
         }
@@ -89,12 +89,17 @@ public class PlayerController : MonoBehaviour
     // Change ship color and destroy all gameobject with the tag ennemy
     private void Shoot()
     {
-        gameObject.transform.GetChild(1).GetComponentsInChildren<Renderer>()[0].material.color = Color.red;
+        shootingAnimation();
         GameObject[] toDestroy = GameObject.FindGameObjectsWithTag("Ennemy");
         foreach (GameObject elem in toDestroy)
         {
             Destroy(elem);
         }
-//        GameObject.FindObjectOfType<WaveMachine>().NextWave();
+        GameObject.FindObjectOfType<WaveMachine>().NextWave();
+    }
+
+    private void shootingAnimation()
+    {
+        gameObject.transform.GetChild(1).GetComponentsInChildren<Renderer>()[0].material.color = Color.red;
     }
 }
