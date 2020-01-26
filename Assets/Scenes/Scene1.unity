@@ -215,7 +215,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &367193528
 MeshFilter:
@@ -655,7 +655,7 @@ PrefabInstance:
     - target: {fileID: 5757914710342635317, guid: f7753e4351bd1dc498b8d35b34491c7f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5757914710342635317, guid: f7753e4351bd1dc498b8d35b34491c7f,
         type: 3}
@@ -728,7 +728,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wave: 1
   range: 10
-  TimerUI: {fileID: 2747303838285271582, guid: e95c82e7216d6cf4eb0ed01c5588501e, type: 3}
+  EnemyPrefab: {fileID: 2262309436626772441, guid: e923eb592e96832418510c0d5b5398a9,
+    type: 3}
+  TimerPrefab: {fileID: 2747303838285271582, guid: e95c82e7216d6cf4eb0ed01c5588501e,
+    type: 3}
 --- !u!4 &2105734922
 Transform:
   m_ObjectHideFlags: 0
