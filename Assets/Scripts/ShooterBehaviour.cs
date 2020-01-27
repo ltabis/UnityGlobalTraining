@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ShooterBehaviour : MonoBehaviour
 {
-    [SerializeField] private float time = 0.0f;
-    [SerializeField] private float gap = 10;
+    [SerializeField] private GameObject Bolt;
+    [SerializeField] private Transform Spawner;
 
     // Start is called before the first frame update
     void Start()
@@ -15,16 +15,12 @@ public class ShooterBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        if (time >= gap)
-        {
-            time = time - gap;
-            // Shoot()
-        }
+
     }
 
-    private void Shoot()
+    public void Shoot()
     {
-
+        GameObject spawn = Instantiate(Bolt, Spawner.position, Spawner.rotation);
+        spawn.transform.SetParent(gameObject.transform);
     }
 }
