@@ -16,11 +16,13 @@ public class TurretBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Transform target = GameObject.Find("Body").transform;
         time += Time.deltaTime;
         if (time >= gap)
         {
             time = time - gap;
             gameObject.GetComponentInChildren<ShooterBehaviour>().Shoot();
+
         }
     }
 }

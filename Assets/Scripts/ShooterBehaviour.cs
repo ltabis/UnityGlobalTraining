@@ -10,6 +10,7 @@ public class ShooterBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Spawner = gameObject.transform;
     }
 
     // Update is called once per frame
@@ -20,7 +21,11 @@ public class ShooterBehaviour : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject spawn = Instantiate(Bolt, Spawner.position, Spawner.rotation);
-        spawn.transform.SetParent(gameObject.transform);
+        if (Bolt != null)
+        {
+            GameObject spawn = Instantiate(Bolt, Spawner.position, Spawner.rotation);
+            spawn.transform.SetParent(gameObject.transform);
+            spawn.GetComponent<BoltBehaviour>().direction = GameObject.Find("Body").GetComponent<Transform>().position - gameObject.GetComponent<Transform>().position;
+        }
     }
 }
