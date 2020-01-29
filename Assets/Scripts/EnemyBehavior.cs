@@ -9,7 +9,10 @@ public class EnemyBehavior : MonoBehaviour, IEnemy
     private Transform target;
 
     // Start is called before the first frame update
-    private void Start() {}
+    private void Start()
+    {
+        speed = Random.Range(0.05f, 0.2f);
+    }
 
     // Update is called once per frame
     private void Update()
